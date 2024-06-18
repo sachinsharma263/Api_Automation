@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 public class TestCreateUserAPI extends APISetUp {
 
- @Test
+@Test
 public void validateCreateCustomerAPIWithValidData()
 {
 
@@ -27,12 +27,16 @@ public void validateCreateCustomerAPIWithValidData()
 //            formParam("email","sac@gmail.com").formParam("description","testing stripe")
 //            .log().all();
 
+    testLevelLog.get().assignAuthor("Rahul");
+    testLevelLog.get().assignCategory("Regression");
     RequestSpecification request=setRequestSpecification(). formParam("email","sac@gmail.com").formParam("description","testing stripe");
 //            .log().all();
 
 
 
     Response response=request.post("customers");
+
+    testLevelLog.get().info(response.asString());
 
     System.out.println("----------------------------------------");
    // response.prettyPrint();
