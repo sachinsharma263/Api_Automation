@@ -24,8 +24,8 @@ public class APISetUp {
 
    public static ExtentReports extentReports;
 
-   public static ThreadLocal<ExtentTest> classLevelLog=new ThreadLocal<>();
-    public static ThreadLocal<ExtentTest> testLevelLog=new ThreadLocal<>();
+   public static ThreadLocal<ExtentTest> classLevelLog=new ThreadLocal<ExtentTest>();
+    public static ThreadLocal<ExtentTest> testLevelLog=new ThreadLocal<ExtentTest>();
     @BeforeSuite
     public  void beforeSuite()
     {
@@ -40,7 +40,8 @@ public class APISetUp {
     public void beforeClass()
     {
 
-        ExtentTest classLevelLog=extentReports.createTest(getClass().getSimpleName());
+        ExtentTest classLevelTest=extentReports.createTest(getClass().getSimpleName());
+        classLevelLog.set(classLevelTest);
 
     }
     @BeforeMethod
