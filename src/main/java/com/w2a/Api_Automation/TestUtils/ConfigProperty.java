@@ -20,4 +20,7 @@ public interface ConfigProperty extends Config {
     @Key("testReportName")
     public String getTestReportName();
 
+    @Key("testSheetDataName")
+    public String getTestDataSheetName();
+
 }

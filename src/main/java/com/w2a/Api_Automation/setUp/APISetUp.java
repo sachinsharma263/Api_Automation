@@ -33,7 +33,7 @@ public class APISetUp {
         configProperty= ConfigFactory.create(ConfigProperty.class);
 
         RestAssured.baseURI=configProperty.getBaseURI();
-        RestAssured.basePath=configProperty.getBasePath();
+       RestAssured.basePath=configProperty.getBasePath();
         extentReports=Extentmanager.GetExtent(configProperty.getTestFilePath()+configProperty.getTestReportName());
     }
     @BeforeClass

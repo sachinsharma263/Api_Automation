@@ -13,11 +13,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Hashtable;
+import java.util.List;
 
 public class TestCreateUserAPI extends APISetUp {
 
 @Test(dataProviderClass = DataProviderClass.class, dataProvider = "dp")
-public void validateCreateCustomerAPIWithVD(Hashtable<String,String> data)
+public void validateCreateCustomerAPIWithValidData(Hashtable<String,String> data)
 {
 
     //System.out.println("Execution of test case:- validateCreateCustomerAPIWithValidData started");
@@ -65,5 +66,41 @@ public void validateCreateCustomerAPIWithVD(Hashtable<String,String> data)
     Assert.assertEquals(response.getStatusCode(),200);
 
 
+}
+@Test(dataProviderClass = DataProviderClass.class,dataProvider ="dp",enabled = false)
+public void fetchCustomer(Hashtable<String,String> data)
+{
+
+    String endPoint=data.get("endPoint");
+    RequestSpecification specRequest=setRequestSpecification().log().all();
+   Response response= specRequest.request(data.get("methodType"),data.get("endPoint"));
+
+   response.prettyPrint();
+
+//   List<String> listOfId=response.path("data.id");
+//
+//   System.out.println(listOfId);
+//  int size=response.path("data.size()");
+//    System.out.println(size);
+//
+//  size= response.path("data[0].size()");
+//    System.out.println(size);
+    // "default_source": "card_1PU1slJAJfZb9HEBokuQQMrp",
+
+    //List<String> listOfData=response.path("data");
+    int length=response.path("data.size()");
+
+    for (int i=0;i<length;i++)
+    {
+        String actualDefaultSource=response.path("data["+i+"].default_source");
+        String expectedDefaultSource="card_1PU1slJAJfZb9HEBokuQQMrp";
+        if (actualDefaultSource.equalsIgnoreCase(expectedDefaultSource))
+        {
+
+            String customerId=response.path("data["+i+"].id");
+            System.out.println("customerId:"+ customerId);
+            break;
+        }
+    }
 }
 }
